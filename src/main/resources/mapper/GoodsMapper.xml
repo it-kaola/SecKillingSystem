@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjpowernode.mapper.GoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bjpowernode.pojo.Goods">
+        <id column="id" property="id" />
+        <result column="goods_name" property="goodsName" />
+        <result column="goods_title" property="goodsTitle" />
+        <result column="goods_img" property="goodsImg" />
+        <result column="goods_detail" property="goodsDetail" />
+        <result column="goods_price" property="goodsPrice" />
+        <result column="goods_stock" property="goodsStock" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock
+    </sql>
+
+
+    <select id="getGoodsVoList" resultType="com.bjpowernode.vo.GoodsVo">
+        select
+            a.id,
+            a.goods_name,
+            a.goods_price,
+            a.goods_detail,
+            a.goods_img,
+            a.goods_stock,
+            a.goods_title,
+            b.seckill_price,
+            b.stock_count,
+            b.start_date,
+            b.end_date
+        from
+	        t_goods as a
+        join
+	        t_seckill_goods as b
+        on
+	        a.id=b.goods_id
+    </select>
+
+    <select id="getGoodsVoById" resultType="com.bjpowernode.vo.GoodsVo">
+        select
+            a.id,
+            a.goods_name,
+            a.goods_price,
+            a.goods_detail,
+            a.goods_img,
+            a.goods_stock,
+            a.goods_title,
+            b.seckill_price,
+            b.stock_count,
+            b.start_date,
+            b.end_date
+        from
+	        t_goods as a
+        join
+	        t_seckill_goods as b
+        on
+	        a.id=b.goods_id
+	    where
+	        a.id=#{goodsId}
+    </select>
+
+</mapper>
